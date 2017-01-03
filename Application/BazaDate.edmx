@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BazaDate.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calibre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReperId" Type="int" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Valoare" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operatii">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReperId" Type="int" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Masina" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Durata" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repere">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TimpExecutie" Type="bigint" Nullable="false" />
+          <Property Name="TipMaterial" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="DesenTehnic" Type="image" />
+          <Property Name="Desen3d" Type="image" />
+          <Property Name="PretVanzare" Type="int" Nullable="false" />
+          <Property Name="CostProductie" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilizatori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Parola" Type="varbinary" MaxLength="500" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Calibre_Repere">
+          <End Role="Repere" Type="Self.Repere" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Calibre" Type="Self.Calibre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calibre">
+              <PropertyRef Name="ReperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operatii_Repere">
+          <End Role="Repere" Type="Self.Repere" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Operatii" Type="Self.Operatii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Operatii">
+              <PropertyRef Name="ReperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BazaDateStoreContainer">
+          <EntitySet Name="Calibre" EntityType="Self.Calibre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operatii" EntityType="Self.Operatii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repere" EntityType="Self.Repere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilizatori" EntityType="Self.Utilizatori" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calibre_Repere" Association="Self.FK_Calibre_Repere">
+            <End Role="Repere" EntitySet="Repere" />
+            <End Role="Calibre" EntitySet="Calibre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operatii_Repere" Association="Self.FK_Operatii_Repere">
+            <End Role="Repere" EntitySet="Repere" />
+            <End Role="Operatii" EntitySet="Operatii" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BazaDate" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Calibru">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReperId" Type="Int32" Nullable="false" />
+          <Property Name="Nume" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Valoare" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Repere" Relationship="Self.FK_Calibre_Repere" FromRole="Calibre" ToRole="Repere" />
+        </EntityType>
+        <EntityType Name="Operatie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReperId" Type="Int32" Nullable="false" />
+          <Property Name="Nume" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Masina" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Repere" Relationship="Self.FK_Operatii_Repere" FromRole="Operatii" ToRole="Repere" />
+          <Property Name="Durata" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimpExecutie" Type="Int64" Nullable="false" />
+          <Property Name="TipMaterial" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DesenTehnic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Desen3d" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PretVanzare" Type="Int32" Nullable="false" />
+          <Property Name="CostProductie" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Calibre" Relationship="Self.FK_Calibre_Repere" FromRole="Repere" ToRole="Calibre" />
+          <NavigationProperty Name="Operatii" Relationship="Self.FK_Operatii_Repere" FromRole="Repere" ToRole="Operatii" />
+        </EntityType>
+        <EntityType Name="Utilizator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Parola" Type="Binary" MaxLength="500" FixedLength="false" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Calibre_Repere">
+          <End Role="Repere" Type="BazaDate.Reper" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Calibre" Type="BazaDate.Calibru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calibre">
+              <PropertyRef Name="ReperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operatii_Repere">
+          <End Role="Repere" Type="BazaDate.Reper" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Operatii" Type="BazaDate.Operatie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repere">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Operatii">
+              <PropertyRef Name="ReperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BazaDateAplicatie" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calibre" EntityType="BazaDate.Calibru" />
+          <EntitySet Name="Operatii" EntityType="BazaDate.Operatie" />
+          <EntitySet Name="Repere" EntityType="BazaDate.Reper" />
+          <EntitySet Name="Utilizatori" EntityType="BazaDate.Utilizator" />
+          <AssociationSet Name="FK_Calibre_Repere" Association="Self.FK_Calibre_Repere">
+            <End Role="Repere" EntitySet="Repere" />
+            <End Role="Calibre" EntitySet="Calibre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operatii_Repere" Association="Self.FK_Operatii_Repere">
+            <End Role="Repere" EntitySet="Repere" />
+            <End Role="Operatii" EntitySet="Operatii" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BazaDateStoreContainer" CdmEntityContainer="BazaDateAplicatie">
+          <EntitySetMapping Name="Calibre">
+            <EntityTypeMapping TypeName="BazaDate.Calibru">
+              <MappingFragment StoreEntitySet="Calibre">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ReperId" ColumnName="ReperId" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Valoare" ColumnName="Valoare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operatii">
+            <EntityTypeMapping TypeName="BazaDate.Operatie">
+              <MappingFragment StoreEntitySet="Operatii">
+                <ScalarProperty Name="Durata" ColumnName="Durata" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ReperId" ColumnName="ReperId" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Masina" ColumnName="Masina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repere">
+            <EntityTypeMapping TypeName="BazaDate.Reper">
+              <MappingFragment StoreEntitySet="Repere">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="TimpExecutie" ColumnName="TimpExecutie" />
+                <ScalarProperty Name="TipMaterial" ColumnName="TipMaterial" />
+                <ScalarProperty Name="DesenTehnic" ColumnName="DesenTehnic" />
+                <ScalarProperty Name="Desen3d" ColumnName="Desen3d" />
+                <ScalarProperty Name="PretVanzare" ColumnName="PretVanzare" />
+                <ScalarProperty Name="CostProductie" ColumnName="CostProductie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilizatori">
+            <EntityTypeMapping TypeName="BazaDate.Utilizator">
+              <MappingFragment StoreEntitySet="Utilizatori">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

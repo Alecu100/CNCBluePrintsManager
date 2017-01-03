@@ -1,0 +1,308 @@
+﻿<Window x:Class="Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:application="clr-namespace:Application"
+        Title="MainWindow" Height="806" Width="981" ResizeMode="NoResize">
+    <Grid>
+        <TabControl Margin="10,50,12,12"
+                    x:Name="tbctrlAplicatie">
+            <TabItem Header="Repere">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Lista Repere" HorizontalAlignment="Left" Margin="10,10,0,0"
+                              VerticalAlignment="Top" Height="591" Width="314">
+                        <Grid>
+                            <ListView x:Name="lstRepere" SelectionChanged="LstRepere_OnSelectionChanged"
+                                      SelectionMode="Single"
+                                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=Repere }"
+                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left"
+                                      Width="302" Height="492" VerticalAlignment="Top">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Nume" Width="120" DisplayMemberBinding="{Binding Nume}" />
+                                        <GridViewColumn Header="Tip Material" Width="120"
+                                                        DisplayMemberBinding="{Binding TipMaterial}" />
+                                        <GridViewColumn Header="Timp Executie" Width="120"
+                                                        DisplayMemberBinding="{Binding TimpExecutie}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Reper Selectat" HorizontalAlignment="Left" Margin="329,10,0,0"
+                              VerticalAlignment="Top" Height="667" Width="608" Grid.RowSpan="3">
+                        <Grid>
+                            <ScrollViewer Margin="0,0,0,115">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="79" />
+                                    </Grid.RowDefinitions>
+                                    <Expander Header="Proprietati Generale" HorizontalAlignment="Left"
+                                              Margin="10,10,-7,1"
+                                              Width="576" IsExpanded="False">
+                                        <Grid>
+                                            <Label Content="Nume" Margin="10,10,0,0" Height="28"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left" Width="52" />
+                                            <TextBox Margin="121,10,0,0" HorizontalAlignment="Left" Width="138"
+                                                     Height="28"
+                                                     VerticalAlignment="Top" x:Name="txtNumeReper"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.Nume, Mode=TwoWay }" />
+
+                                            <Label Content="Timp de Executie" Margin="10,43,0,0" Height="28"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" />
+                                            <TextBox Margin="121,43,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="138"
+                                                     x:Name="txtTimpExecutieReper"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.TimpExecutie, Mode=TwoWay }"
+                                                     IsReadOnly="True" />
+
+                                            <Label Content="Tip Material" Margin="10,76,0,0" Height="28"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" />
+                                            <TextBox Margin="121,76,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="138"
+                                                     x:Name="txtTipMaterialReper"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.TipMaterial, Mode=TwoWay }" />
+
+                                            <Label Content="Pret de Vanzare" Margin="279,10,0,0" Height="28"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" />
+                                            <TextBox Margin="390,10,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="138"
+                                                     x:Name="txtPretVanzareReper"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.PretVanzare, Mode=TwoWay }" />
+
+
+                                            <Label Content="Cost de Productie" Margin="279,43,0,0" Height="28"
+                                                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" />
+                                            <TextBox Margin="390,43,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="138"
+                                                     x:Name="txtCostProductieReper"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.CostProductie, Mode=TwoWay }" />
+                                        </Grid>
+                                    </Expander>
+                                    <Expander Header="Lista Operatii" HorizontalAlignment="Left" Margin="10,8,-7,0"
+                                              Width="576"
+                                              IsExpanded="False" Grid.Row="1">
+                                        <Grid>
+                                            <ListView x:Name="lstOperatii" Margin="10,10,0,0" Height="157"
+                                                      SelectionMode="Single"
+                                                      VerticalAlignment="Top" HorizontalAlignment="Left" Width="288"
+                                                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=Operatii }"
+                                                      SelectionChanged="LstOperatii_OnSelectionChanged">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Nume" Width="120"
+                                                                        DisplayMemberBinding="{Binding Nume}" />
+                                                        <GridViewColumn Header="Masina" Width="120"
+                                                                        DisplayMemberBinding="{Binding Masina}" />
+                                                    </GridView>
+                                                </ListView.View>
+
+                                            </ListView>
+
+                                            <Label Content="Nume" Margin="317,10,0,0" Height="28"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left" Width="52" />
+                                            <TextBox Margin="389,10,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="175" x:Name="txtNumeOperatie"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedOperatie.Nume, Mode=TwoWay }" />
+
+
+                                            <Label Content="Masina" Margin="317,43,0,0" Height="28"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left" Width="52" />
+                                            <TextBox Margin="389,43,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="175" x:Name="txtMasinaOperatie"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedOperatie.Masina, Mode=TwoWay }" />
+
+                                            <Button Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="116"
+                                                    Margin="317,113,0,0" Content="Adauga Operatie"
+                                                    x:Name="btnAdaugaOperatie"
+                                                    Click="btnAdaugaOperatie_Click" />
+                                            <Button Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="116"
+                                                    Margin="448,113,0,0" Content="Sterge Operatie"
+                                                    x:Name="btnStergeOperatie" Click="BtnStergeOperatie_OnClick" />
+                                            <Label Content="Durata" HorizontalAlignment="Left" Margin="317,76,0,0"
+                                                   VerticalAlignment="Top" />
+                                            <TextBox x:Name="txtMasinaDurata" HorizontalAlignment="Left" Height="26"
+                                                     Margin="389,76,0,0" TextWrapping="Wrap"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedOperatie.Durata, Mode=TwoWay }"
+                                                     VerticalAlignment="Top" Width="175" />
+                                        </Grid>
+                                    </Expander>
+                                    <Expander Header="Lista Calibre" HorizontalAlignment="Left" Margin="10,5,-0,10"
+                                              Width="576"
+                                              IsExpanded="False" Grid.Row="2">
+                                        <Grid>
+                                            <ListView x:Name="lstCalibre" Margin="10,10,0,0" Height="191"
+                                                      VerticalAlignment="Top" HorizontalAlignment="Left" Width="288"
+                                                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=Calibre }"
+                                                      SelectionChanged="LstCalibre_OnSelectionChanged">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Nume" Width="120"
+                                                                        DisplayMemberBinding="{Binding Nume}" />
+                                                        <GridViewColumn Header="Masina" Width="120"
+                                                                        DisplayMemberBinding="{Binding Valoare}" />
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+
+                                            <Label Content="Nume" Margin="317,10,0,0" Height="28"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left" Width="52" />
+                                            <TextBox Margin="389,10,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="175"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedCalibru.Nume, Mode=TwoWay }" />
+
+
+                                            <Label Content="Valoare" Margin="317,43,0,0" Height="28"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left" Width="52" />
+                                            <TextBox Margin="389,43,0,0" Height="28" VerticalAlignment="Top"
+                                                     HorizontalAlignment="Left" Width="175"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedCalibru.Valoare, Mode=TwoWay }" />
+
+                                            <Button Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="116"
+                                                    Margin="317,76,0,0" Content="Adauga Calibru"
+                                                    x:Name="btnAdaugaCalibru"
+                                                    Click="btnAdaugaCalibru_Click" />
+                                            <Button Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="116"
+                                                    Margin="448,76,0,0" Content="Sterge Calibru"
+                                                    x:Name="btnStergeCalibru" Click="BtnStergeCalibru_OnClick" />
+                                        </Grid>
+                                    </Expander>
+
+                                    <Expander Header="Desen Tehnic" HorizontalAlignment="Left" Margin="10,5,0,0"
+                                              Width="576"
+                                              IsExpanded="False" Grid.Row="3">
+                                        <Grid>
+                                            <ScrollViewer Height="300" Margin="10,0" CanContentScroll="true"
+                                                          VerticalScrollBarVisibility="Visible"
+                                                          HorizontalScrollBarVisibility="Visible">
+                                                <Image
+                                                    Source="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.DesenTehnic }" />
+                                            </ScrollViewer>
+                                            <Button x:Name="btnAdaugaImagineDesenTehnic" Content="Adauga Imagine Noua"
+                                                    Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="150" Margin="133,340,0,0"
+                                                    Click="btnAdaugaImagineDesenTehnic_Click" />
+
+                                            <Button x:Name="btnStergeImagineDesenTehnic" Content="Sterge Imagine"
+                                                    Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="129" Margin="300,340,0,0"
+                                                    Click="btnStergeImagineDesenTehnic_Click" />
+                                        </Grid>
+                                    </Expander>
+
+                                    <Expander Header="Desen 3D" HorizontalAlignment="Left" Margin="10,5,0,0"
+                                              Width="576"
+                                              IsExpanded="true" Grid.Row="4">
+                                        <Grid>
+                                            <ScrollViewer Height="300" Margin="10,0" CanContentScroll="true"
+                                                          VerticalScrollBarVisibility="Visible"
+                                                          HorizontalScrollBarVisibility="Visible">
+                                                <Image
+                                                    Source="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=SelectedReper.Desen3d }" />
+                                            </ScrollViewer>
+                                            <Button x:Name="btnAdaugaImagineDesen3d" Content="Adauga Imagine Noua"
+                                                    Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="150" Margin="133,340,0,0"
+                                                    Click="BtnAdaugaImagineDesen3d_OnClick" />
+
+                                            <Button x:Name="btnStergeImagineDesen3d" Content="Sterge Imagine"
+                                                    Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Width="129" Margin="300,340,0,0"
+                                                    Click="BtnStergeImagineDesen3d_OnClick" />
+                                        </Grid>
+                                    </Expander>
+
+                                </Grid>
+                            </ScrollViewer>
+                            <Button Content="Adauga Reper Nou" HorizontalAlignment="Left" Margin="80,0,0,70"
+                                    VerticalAlignment="Bottom" Width="117" Height="27"
+                                    x:Name="btnAdaugaReperNou" Click="btnAdaugaReperNou_Click" />
+                            <Button Content="Sterge Reper" HorizontalAlignment="Left" Margin="220,0,0,70"
+                                    VerticalAlignment="Bottom" Width="132" Height="27"
+                                    x:Name="btnStergeReper" Click="btnStergeReper_Click" />
+                            <Button Content="Salveaza Reper" HorizontalAlignment="Left" Margin="374,0,0,70"
+                                    VerticalAlignment="Bottom" Width="147" Height="27"
+                                    x:Name="btnSalveazaReper" Click="BtnSalveazaReper_OnClick" />
+                        </Grid>
+
+
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Utilizatori">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="lstUtilizatori" Height="584" Margin="10,10,10,0" VerticalAlignment="Top"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=Utilizatori }"
+                              SelectionMode="Single">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Nume" Width="300" DisplayMemberBinding="{Binding Nume}" />
+                                <GridViewColumn Header="Administrator" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type application:Utilizator}">
+                                            <CheckBox IsChecked="{Binding Path=IsAdmin, Mode=TwoWay }"
+                                                      IsHitTestVisible="{Binding IsNotDefault}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Predefinit" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type application:Utilizator}">
+                                            <CheckBox IsChecked="{Binding Path=IsDefault, Mode=TwoWay }"
+                                                      IsHitTestVisible="{Binding IsNotDefault}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="btnAdaugaUtilizator" Content="Adauga" HorizontalAlignment="Left"
+                            Margin="644,625,0,0" VerticalAlignment="Top" Width="75" Height="26"
+                            Click="BtnAdaugaUtilizator_OnClick" />
+                    <Label Content="Nume" HorizontalAlignment="Left" Margin="10,625,0,0" VerticalAlignment="Top"
+                           RenderTransformOrigin="-0.105,0.038" />
+                    <TextBox x:Name="txtAdaugaUtilizatorNume" HorizontalAlignment="Left" Height="26"
+                             Margin="57,625,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" />
+                    <PasswordBox x:Name="txtAdaugaUtilizatorParola" HorizontalAlignment="Left" Margin="389,625,0,0"
+                                 VerticalAlignment="Top" Width="213" Height="26" />
+                    <Label Content="Parola" HorizontalAlignment="Left" Margin="341,625,0,0" VerticalAlignment="Top"
+                           RenderTransformOrigin="-0.105,0.038" />
+                    <Button x:Name="btnStergeUtilizator" Content="Sterge" HorizontalAlignment="Left"
+                            Margin="741,625,0,0" VerticalAlignment="Top" Width="75" Height="26"
+                            Click="btnStergeUtilizator_Click" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Label Content="Utilizator" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="83,10,0,0" TextWrapping="Wrap" Text="utilizator"
+                 VerticalAlignment="Top" Width="120" x:Name="txtUtilizator" />
+        <Label Content="Parola" HorizontalAlignment="Left" Margin="262,10,0,0" VerticalAlignment="Top" />
+        <PasswordBox HorizontalAlignment="Left" Margin="321,10,0,0" VerticalAlignment="Top" Width="134" Height="26"
+                     x:Name="psbParola" />
+        <Button Content="Logare" HorizontalAlignment="Left" Margin="515,10,0,0" VerticalAlignment="Top" Width="75"
+                Height="26" x:Name="btnLogare" Click="btnLogare_Click"
+                IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=IsNotLoggedIn }" />
+        <Button Content="Delogare" HorizontalAlignment="Left" Margin="607,10,0,0" VerticalAlignment="Top" Width="75"
+                Height="26" x:Name="btnDelogare" Click="btnDelogare_Click"
+                IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=IsLoggedIn }" />
+        <Button Content="Inregistrare" HorizontalAlignment="Left" Margin="700,10,0,0" VerticalAlignment="Top"
+                Width="75" Height="26" x:Name="btnInregistrare" Click="BtnInregistrare_OnClick"
+                IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type application:MainWindow}}, Path=IsNotLoggedIn }" />
+
+    </Grid>
+</Window>
